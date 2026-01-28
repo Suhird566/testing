@@ -8,9 +8,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 
 Base = declarative_base()
 
-# PR test change
 
-ydgf yiugsfiuybgicoiufconuifurfiu
-fuigcaydfvef
-fromkbfugeuyogfeuygfowqeyf
+
 
