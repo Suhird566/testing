@@ -1,0 +1,8 @@
+{
+  "project_overview": "FastAPI based backend for an AI code review platform that provides REST endpoints for managing organizations.",
+  "main_modules": "backend/main.py (application entry point), backend/database.py (database engine and session), backend/models.py (ORM models), backend/schemas.py (Pydantic schemas).",
+  "architecture": "Client interacts with a FastAPI API server. The API uses SQLAlchemy to manage a database session and persist Organization entities in a relational database. The models are defined in models.py and the request/response schemas in schemas.py.",
+  "api_flow": "1. Client sends GET / or POST /organizations or GET /organizations.\n2. FastAPI routes to the appropriate handler.\n3. Each handler obtains a SQLAlchemy Session via the get_db dependency.\n4. For POST, a new Organization model instance is created, added to the session, committed, refreshed, and returned.\n5. For GET, the session queries all Organization records and returns them.\n6. Responses are returned as JSON.",
+  "core_logic": "Create organization: instantiate models.Organization with data from schemas.OrganizationCreate, add to DB session, commit, refresh, return the persisted object. List organizations: query all models.Organization instances via DB session and return the list.",
+  "mermaid": "flowchart LR\nA[\"Client\"] --> B[\"API\"]\nB --> C[\"DB Session\"]\nC --> D[\"Database\"]\nB --> E[\"Organization Model\"]"
+}

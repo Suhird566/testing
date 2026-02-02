@@ -1,0 +1,218 @@
+{
+  "repo_root": "C:\\Users\\suhird.singh\\Downloads\\codeintelligenceplatform\\codeplatform\\code-doc-agent\\backend\\repos\\Suhird566\\testing",
+  "file_count": 4,
+  "entry_points": [
+    "backend\\main.py"
+  ],
+  "files": [
+    {
+      "path": "backend\\main.py",
+      "size_bytes": 874,
+      "imports": [
+        "models",
+        "schemas"
+      ],
+      "from_imports": {
+        "fastapi": [
+          "Depends",
+          "FastAPI"
+        ],
+        "sqlalchemy.orm": [
+          "Session"
+        ],
+        "database": [
+          "SessionLocal",
+          "engine"
+        ]
+      },
+      "symbols": [
+        {
+          "kind": "function",
+          "name": "get_db",
+          "start_line": 12,
+          "end_line": 17,
+          "has_docstring": false
+        },
+        {
+          "kind": "function",
+          "name": "root",
+          "start_line": 22,
+          "end_line": 23,
+          "has_docstring": false
+        },
+        {
+          "kind": "function",
+          "name": "create_organization",
+          "start_line": 26,
+          "end_line": 31,
+          "has_docstring": false
+        },
+        {
+          "kind": "function",
+          "name": "list_organizations",
+          "start_line": 34,
+          "end_line": 35,
+          "has_docstring": false
+        }
+      ],
+      "routes": [
+        {
+          "method": "GET",
+          "path": "/",
+          "handler": "root",
+          "line": 22
+        },
+        {
+          "method": "POST",
+          "path": "/organizations",
+          "handler": "create_organization",
+          "line": 26
+        },
+        {
+          "method": "GET",
+          "path": "/organizations",
+          "handler": "list_organizations",
+          "line": 34
+        }
+      ]
+    },
+    {
+      "path": "backend\\database.py",
+      "size_bytes": 664,
+      "imports": [],
+      "from_imports": {
+        "sqlalchemy": [
+          "create_engine"
+        ],
+        "sqlalchemy.orm": [
+          "declarative_base",
+          "sessionmaker"
+        ]
+      },
+      "symbols": [],
+      "routes": []
+    },
+    {
+      "path": "backend\\models.py",
+      "size_bytes": 4375,
+      "imports": [
+        "uuid"
+      ],
+      "from_imports": {
+        "sqlalchemy": [
+          "Boolean",
+          "Column",
+          "ForeignKey",
+          "Integer",
+          "String",
+          "TIMESTAMP",
+          "Text"
+        ],
+        "sqlalchemy.dialects.postgresql": [
+          "UUID"
+        ],
+        "sqlalchemy.sql": [
+          "func"
+        ],
+        "database": [
+          "Base"
+        ]
+      },
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "Organization",
+          "start_line": 8,
+          "end_line": 17,
+          "has_docstring": false
+        },
+        {
+          "kind": "class",
+          "name": "User",
+          "start_line": 21,
+          "end_line": 32,
+          "has_docstring": false
+        },
+        {
+          "kind": "class",
+          "name": "Repository",
+          "start_line": 36,
+          "end_line": 46,
+          "has_docstring": false
+        },
+        {
+          "kind": "class",
+          "name": "DocumentationRun",
+          "start_line": 50,
+          "end_line": 60,
+          "has_docstring": false
+        },
+        {
+          "kind": "class",
+          "name": "PullRequest",
+          "start_line": 64,
+          "end_line": 74,
+          "has_docstring": false
+        },
+        {
+          "kind": "class",
+          "name": "CodeReviewRun",
+          "start_line": 78,
+          "end_line": 87,
+          "has_docstring": false
+        },
+        {
+          "kind": "class",
+          "name": "ReviewFinding",
+          "start_line": 91,
+          "end_line": 102,
+          "has_docstring": false
+        }
+      ],
+      "routes": []
+    },
+    {
+      "path": "backend\\schemas.py",
+      "size_bytes": 122,
+      "imports": [],
+      "from_imports": {
+        "pydantic": [
+          "BaseModel"
+        ]
+      },
+      "symbols": [
+        {
+          "kind": "class",
+          "name": "OrganizationCreate",
+          "start_line": 3,
+          "end_line": 6,
+          "has_docstring": false
+        }
+      ],
+      "routes": []
+    }
+  ],
+  "routes": [
+    {
+      "method": "GET",
+      "path": "/",
+      "handler": "root",
+      "line": 22,
+      "file": "backend\\main.py"
+    },
+    {
+      "method": "GET",
+      "path": "/organizations",
+      "handler": "list_organizations",
+      "line": 34,
+      "file": "backend\\main.py"
+    },
+    {
+      "method": "POST",
+      "path": "/organizations",
+      "handler": "create_organization",
+      "line": 26,
+      "file": "backend\\main.py"
+    }
+  ]
+}
