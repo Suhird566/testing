@@ -6,7 +6,7 @@ import schemas
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="AI Code Review Platform")
+app = FastAPI(title="AI Code Platform")
 
 # Dependency
 def get_db():
@@ -20,7 +20,7 @@ def get_db():
 
 @app.get("/")
 def root():
-    return {"message": "Backend running successfully 🚀"}
+    return {"message": "Backend successfully running 🚀"}
 
 @app.post("/organizations")
 def create_organization(data: schemas.OrganizationCreate, db: Session = Depends(get_db)):
@@ -33,3 +33,4 @@ def create_organization(data: schemas.OrganizationCreate, db: Session = Depends(
 @app.get("/organizations")
 def list_organizations(db: Session = Depends(get_db)):
     return db.query(models.Organization).all()
+
