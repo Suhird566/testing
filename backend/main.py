@@ -1,68 +1,18 @@
-from fastapi import FastAPI, Depends
-from sqlalchemy.orm import Session
+from fastapi import APIRouter, Depends
+from app.security import verify_jwt
+from app.api.orgs import _get_db_user
 
-from database import engine, SessionLocal
-from models import Base, Organization
-from schemas import OrganizationCreate
-
-
-# ------------------------------------------------------------------
-# Database initialization
-# ------------------------------------------------------------------
-Base.metadata.create_all(bind=engine)
-
-
-# ------------------------------------------------------------------
-# FastAPI app
-# ------------------------------------------------------------------
-app = FastAPI(
-    title="AI Code Intelligence Platform",
-    description="Backend APIs for organization and repository management",
-    version="1.0.0",
-)
-
-
-# ------------------------------------------------------------------
-# Database dependency
-# ------------------------------------------------------------------
-def get_db():
-    db = SessionLocal()
-    try:
-        yield db
-    finally:
-        db.close()
-
-
-# ------------------------------------------------------------------
-# Routes
-# ------------------------------------------------------------------
-
-@app.get("/", tags=["Health"])
-def root():
-    """
-    Health check endpoint.
-    """
-    return {"message": "Backend successfully running 🚀"}
-
-
-@app.post("/organizations", tags=["Organizations"])
-def create_organization(
-    payload: OrganizationCreate,
-    db: Session = Depends(get_db),
-):
-    """
-    Create a new organization.
-    """
-    organization = Organization(**payload.dict())
-    db.add(organization)
-    db.commit()
-    db.refresh(organization)
-    return organization
-
-
-@app.get("/organizations", tags=["Organizations"])
-def list_organizations(db: Session = Depends(get_db)):
-    """
-    List all organizations.
-    """
-    return db.query(Organization).all()
+router = APIRouter(prefix="/me", tags=["Me"])       # tags are for swagger grouping
+@router.get("/")        # becomes /me/ endpoint , answers "who am i-- user"
+def get_me(user=Depends(verify_jwt)):
+    user_id = user.get("user_id")
+    db_user = _get_db_user(user_id)
+    org_id = db_user.get("organization_id")
+    return {
+        "user_id": str(db_user["_id"]),
+        "github_id": db_user.get("github_id"),
+        "username": db_user.get("username"),
+        "role": db_user.get("role", "pending"),
+        "organization_id": str(org_id) if org_id else None,
+        "has_org": bool(org_id),
+    }
