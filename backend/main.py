@@ -6,7 +6,7 @@ import schemas
 
 models.Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="AI Code Intelligence Platform")
+app = FastAPI(title="AI Code Intelligence")
 
 # Dependency
 def get_db():
@@ -33,5 +33,6 @@ def create_organization(data: schemas.OrganizationCreate, db: Session = Depends(
 @app.get("/organizations")
 def list_organizations(db: Session = Depends(get_db)):
     return db.query(models.Organization).all()
+
 
 
