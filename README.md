@@ -6,16 +6,16 @@
 The system includes models for various entities within a code review platform, such as `Organizations`, `Users`, `Repositories`, `DocumentationRuns`, `PullRequests`, `CodeReviewRuns`, and `ReviewFindings`, indicating a comprehensive backend structure for managing code analysis and review processes.
 
 ## Features
--   **Health Check** – `GET /` returns a simple success message, confirming the backend is operational.
--   **Create Organization** – `POST /organizations` accepts an `OrganizationCreate` payload, creates a new organization record in the database, and returns the newly created object.
--   **List Organizations** – `GET /organizations` retrieves and returns a list of all organizations currently stored in the database.
+*   **Health Check** – `GET /` returns a simple success message, confirming the backend is operational.
+*   **Create Organization** – `POST /organizations` accepts an `OrganizationCreate` payload, creates a new organization record in the database, and returns the newly created object.
+*   **List Organizations** – `GET /organizations` retrieves and returns a list of all organizations currently stored in the database.
 
 ## Tech Stack
--   **Python** – 3.10+
--   **FastAPI** – Modern, fast (high-performance) web framework for building APIs.
--   **SQLAlchemy** – Python SQL toolkit and Object Relational Mapper (ORM) for database interactions.
--   **Pydantic** – Data validation and settings management using Python type hints (used for request payload validation via `schemas.py`).
--   **SQL Database** (e.g., SQLite) – For persistent data storage, managed through SQLAlchemy.
+*   **Python** – 3.10+
+*   **FastAPI** – Modern, fast (high-performance) web framework for building APIs.
+*   **SQLAlchemy** – Python SQL toolkit and Object Relational Mapper (ORM) for database interactions.
+*   **Pydantic** – Data validation and settings management using Python type hints (used for request payload validation via `schemas.py`).
+*   **SQL Database** (e.g., SQLite) – For persistent data storage, managed through SQLAlchemy.
 
 ## Setup
 1.  **Clone the repository**
