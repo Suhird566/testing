@@ -1,26 +1,29 @@
 # testing
 
 ## Project Overview
-`testing` is a backend application designed for an **AI Code Review Platform**, built with FastAPI and SQLAlchemy. It provides a RESTful API primarily for managing organizations. The application defines its database schema using SQLAlchemy models in `backend/models.py` and validates incoming request payloads with Pydantic schemas in `backend/schemas.py`.
+`testing` is a backend application designed as a foundational component for an **AI Code Review Platform**. It is built with Python, leveraging SQLAlchemy for robust database interactions and Pydantic for efficient data validation and serialization.
 
-The system includes models for various entities within a code review platform, such as `Organization`, `User`, `Repository`, `DocumentationRun`, `PullRequest`, `CodeReviewRun`, and `ReviewFinding`, indicating a comprehensive backend structure for managing code analysis and review processes.
+The application defines a comprehensive database schema in `backend/models.py`, encompassing key entities such as `Organization`, `User`, `Repository`, `DocumentationRun`, `PullRequest`, `CodeReviewRun`, and `ReviewFinding`. Data validation is handled by Pydantic schemas, exemplified by `OrganizationCreate` in `backend/schemas.py`.
+
+The primary entry point for the application is `backend/main.py`, which contains core logic, including a function to retrieve user details.
 
 ## Features
-This backend application exposes the following API endpoints:
+This repository contains the foundational components for an AI Code Review Platform, including:
 
-*   **Health Check** (`GET /`)
-    *   Returns a simple success message, confirming the backend is operational.
-    *   Example response: `{"message": "Backend successfully running 🚀"}`
-
-*   **Create Organization** (`POST /organizations`)
-    *   Accepts an `OrganizationCreate` payload, creates a new organization record in the database, and returns the newly created object.
-
-*   **List Organizations** (`GET /organizations`)
-    *   Retrieves and returns a list of all organizations currently stored in the database.
+*   **User Information Retrieval**: The `get_me` function in `backend/main.py` is designed to fetch detailed information about an authenticated user, including their ID, GitHub ID, username, role, and organization affiliation. This function utilizes a `verify_jwt` dependency, indicating an authentication mechanism.
+*   **Comprehensive Data Models**: `backend/models.py` defines the SQLAlchemy ORM models for key entities within the platform, establishing the database schema:
+    *   `Organization`: Manages organizational details such as name, slug, and plan type.
+    *   `User`: Stores user profiles, linked to organizations, including email, password hash, and role.
+    *   `Repository`: Tracks connected code repositories, including provider, name, URL, and default branch.
+    *   `DocumentationRun`: Records details of documentation generation processes, including status, files scanned, and output path.
+    *   `PullRequest`: Represents pull requests undergoing review, storing details like PR number, title, author, and status.
+    *   `CodeReviewRun`: Stores information about automated code review executions, including status and files analyzed.
+    *   `ReviewFinding`: Details specific issues identified during code reviews, including file path, line number, issue type, severity, description, and suggestion.
+*   **Data Validation Schemas**: `backend/schemas.py` provides Pydantic models for robust data validation, such as `OrganizationCreate`, used for defining the structure of data when creating new organization records.
 
 ## Tech Stack
 *   **Python**: 3.10+
-*   **FastAPI**: A modern, fast (high-performance) web framework for building APIs with Python 3.7+ based on standard Python type hints.
+*   **FastAPI**: A modern, fast (high-performance) web framework for building APIs with Python 3.7+ based on standard Python type hints. (Inferred from the use of `Depends` in `backend/main.py` and common project structure).
 *   **SQLAlchemy**: A Python SQL toolkit and Object Relational Mapper (ORM) for database interactions, providing a full suite of well-known enterprise-level persistence patterns.
 *   **Pydantic**: Data validation and settings management using Python type hints, used for request payload validation via `schemas.py`.
 *   **SQL Database**: For persistent data storage, managed through SQLAlchemy (e.g., SQLite, PostgreSQL, MySQL).
@@ -39,55 +42,4 @@ To get the `testing` backend running locally, follow these steps:
     ```bash
     python -m venv venv
     source venv/bin/activate   # On Windows: venv\Scripts\activate
-    pip install -r requirements.txt   # (Assuming a requirements.txt file exists)
-    ```
-
-3.  **Configure the database**
-    Ensure your SQL database connection is configured. The application uses SQLAlchemy for database interactions. Depending on your setup, you might need to set environment variables or modify a configuration file for the database connection string.
-
-## Usage
-Once the setup is complete, you can start the FastAPI server using Uvicorn:
-
-```bash
-uvicorn backend.main:app --reload
-```
-
-The API will be available at `http://localhost:8000`.
-
-### Available Endpoints
-
-| Method | Endpoint          | Description                                 |
-| :----- | :---------------- | :------------------------------------------ |
-| `GET`  | `/`               | Health check – returns a welcome message.   |
-| `POST` | `/organizations`  | Create a new organization.                  |
-| `GET`  | `/organizations`  | Retrieve a list of all organizations.       |
-
-### Example Request (`POST /organizations`)
-
-To create a new organization, send a `POST` request to `/organizations` with a JSON body conforming to the `OrganizationCreate` schema:
-
-```json
-{
-  "name": "Acme Corp",
-  "slug": "acme-corp",
-  "plan_type": "free"
-}
-```
-
-### Example Response
-
-A successful `POST /organizations` request will return the newly created organization object, including its generated ID and timestamps:
-
-```json
-{
-  "id": "b1d5f6c3-d2e1-4a7b-8c9f-0a1b2c3d4e5f",
-  "name": "Acme Corp",
-  "slug": "acme-corp",
-  "plan_type": "free",
-  "is_active": true,
-  "created_at": "2023-10-27T10:00:00+00:00",
-  "updated_at": "2023-10-27T10:00:00+00:00"
-}
-```
-
-The API is automatically documented via FastAPI’s interactive docs, accessible at `http://localhost:8000/docs`.
+    pip install -r requirements.txt
