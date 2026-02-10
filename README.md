@@ -3,7 +3,7 @@
 ## Project Overview
 `testing` is a backend application designed for an **AI Code Review Platform**, built with FastAPI and SQLAlchemy. It provides a RESTful API primarily for managing organizations. The application defines its database schema using SQLAlchemy models in `backend/models.py` and validates incoming request payloads with Pydantic schemas in `backend/schemas.py`.
 
-The system includes models for various entities within a code review platform, such as `Organizations`, `Users`, `Repositories`, `DocumentationRuns`, `PullRequests`, `CodeReviewRuns`, and `ReviewFindings`, indicating a comprehensive backend structure for managing code analysis and review processes.
+The system includes models for various entities within a code review platform, such as `Organization`, `User`, `Repository`, `DocumentationRun`, `PullRequest`, `CodeReviewRun`, and `ReviewFinding`, indicating a comprehensive backend structure for managing code analysis and review processes.
 
 ## Features
 This backend application exposes the following API endpoints:
