@@ -6,18 +6,28 @@
 The system includes models for various entities within a code review platform, such as `Organizations`, `Users`, `Repositories`, `DocumentationRuns`, `PullRequests`, `CodeReviewRuns`, and `ReviewFindings`, indicating a comprehensive backend structure for managing code analysis and review processes.
 
 ## Features
-*   **Health Check** – `GET /` returns a simple success message, confirming the backend is operational.
-*   **Create Organization** – `POST /organizations` accepts an `OrganizationCreate` payload, creates a new organization record in the database, and returns the newly created object.
-*   **List Organizations** – `GET /organizations` retrieves and returns a list of all organizations currently stored in the database.
+This backend application exposes the following API endpoints:
+
+*   **Health Check** (`GET /`)
+    *   Returns a simple success message, confirming the backend is operational.
+    *   Example response: `{"message": "Backend successfully running 🚀"}`
+
+*   **Create Organization** (`POST /organizations`)
+    *   Accepts an `OrganizationCreate` payload, creates a new organization record in the database, and returns the newly created object.
+
+*   **List Organizations** (`GET /organizations`)
+    *   Retrieves and returns a list of all organizations currently stored in the database.
 
 ## Tech Stack
-*   **Python** – 3.10+
-*   **FastAPI** – Modern, fast (high-performance) web framework for building APIs.
-*   **SQLAlchemy** – Python SQL toolkit and Object Relational Mapper (ORM) for database interactions.
-*   **Pydantic** – Data validation and settings management using Python type hints (used for request payload validation via `schemas.py`).
-*   **SQL Database** (e.g., SQLite) – For persistent data storage, managed through SQLAlchemy.
+*   **Python**: 3.10+
+*   **FastAPI**: A modern, fast (high-performance) web framework for building APIs with Python 3.7+ based on standard Python type hints.
+*   **SQLAlchemy**: A Python SQL toolkit and Object Relational Mapper (ORM) for database interactions, providing a full suite of well-known enterprise-level persistence patterns.
+*   **Pydantic**: Data validation and settings management using Python type hints, used for request payload validation via `schemas.py`.
+*   **SQL Database**: For persistent data storage, managed through SQLAlchemy (e.g., SQLite, PostgreSQL, MySQL).
 
 ## Setup
+To get the `testing` backend running locally, follow these steps:
+
 1.  **Clone the repository**
     ```bash
     git clone <repository-url>
@@ -25,17 +35,18 @@ The system includes models for various entities within a code review platform, s
     ```
 
 2.  **Create a virtual environment & install dependencies**
+    It is recommended to use a virtual environment to manage project dependencies.
     ```bash
     python -m venv venv
     source venv/bin/activate   # On Windows: venv\Scripts\activate
-    pip install -r requirements.txt   # (Install dependencies from requirements.txt if available)
+    pip install -r requirements.txt   # (Assuming a requirements.txt file exists)
     ```
 
 3.  **Configure the database**
-    Ensure your SQL database connection is configured. The application uses SQLAlchemy for database interactions.
+    Ensure your SQL database connection is configured. The application uses SQLAlchemy for database interactions. Depending on your setup, you might need to set environment variables or modify a configuration file for the database connection string.
 
 ## Usage
-Start the FastAPI server using Uvicorn:
+Once the setup is complete, you can start the FastAPI server using Uvicorn:
 
 ```bash
 uvicorn backend.main:app --reload
@@ -43,13 +54,17 @@ uvicorn backend.main:app --reload
 
 The API will be available at `http://localhost:8000`.
 
+### Available Endpoints
+
 | Method | Endpoint          | Description                                 |
-|--------|-------------------|---------------------------------------------|
+| :----- | :---------------- | :------------------------------------------ |
 | `GET`  | `/`               | Health check – returns a welcome message.   |
-| `POST` | `/organizations`  | Create a new organization.                   |
+| `POST` | `/organizations`  | Create a new organization.                  |
 | `GET`  | `/organizations`  | Retrieve a list of all organizations.       |
 
-**Example Request** (`POST /organizations`)
+### Example Request (`POST /organizations`)
+
+To create a new organization, send a `POST` request to `/organizations` with a JSON body conforming to the `OrganizationCreate` schema:
 
 ```json
 {
@@ -59,7 +74,9 @@ The API will be available at `http://localhost:8000`.
 }
 ```
 
-**Example Response**
+### Example Response
+
+A successful `POST /organizations` request will return the newly created organization object, including its generated ID and timestamps:
 
 ```json
 {
