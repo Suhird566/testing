@@ -18,12 +18,13 @@ SessionLocal = sessionmaker(
 )
 # Session factory
 SessionLocal = sessionmaker(
-    autocommit=False,
-    autoflush=True,
+    autocommit=True,
+    autoflush=False,
     bind=engine,
 )
 
 # Base class for ORM models
 Base = declarative_base()
+
 
 
