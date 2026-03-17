@@ -1,30 +1,14 @@
 from fastapi import FastAPI, Depends
 from sqlalchemy.orm import Session
-
 from database import engine, SessionLocal
-from models import Base, Organization
-from schemas import OrganizationCreate
+import models
+import schemas
 
+models.Base.metadata.create_all(bind=engine)
 
-# ------------------------------------------------------------------
-# Database initialization
-# ------------------------------------------------------------------
-Base.metadata.create_all(bind=engine)
+app = FastAPI(title="AI Code Intelligence Platform")
 
-
-# ------------------------------------------------------------------
-# FastAPI app
-# ------------------------------------------------------------------
-app = FastAPI(
-    title="AI Code Intelligence Platform",
-    description="Backend APIs for organization and repository management",
-    version="1.0.0",
-)
-
-
-# ------------------------------------------------------------------
-# Database dependency
-# ------------------------------------------------------------------
+# Dependency
 def get_db():
     db = SessionLocal()
     try:
@@ -32,37 +16,24 @@ def get_db():
     finally:
         db.close()
 
+# ---------------- ROUTES ----------------
 
-# ------------------------------------------------------------------
-# Routes
-# ------------------------------------------------------------------
-
-@app.get("/", tags=["Health"])
+@app.get("/")
 def root():
-    """
-    Health check endpoint.
-    """
-    return {"message": "Backend successfully running 🚀"}
+    return {"message": "Backend running successfully🚀"}
 
-
-@app.post("/organizations", tags=["Organizations"])
-def create_organization(
-    payload: OrganizationCreate,
-    db: Session = Depends(get_db),
-):
-    """
-    Create a new organization.
-    """
-    organization = Organization(**payload.dict())
-    db.add(organization)
+@app.post("/organizations")
+def create_organization(data: schemas.OrganizationCreate, db: Session = Depends(get_db)):
+    org = models.Organization(**data.dict())
+    db.add(org)
     db.commit()
-    db.refresh(organization)
-    return organization
+    db.refresh(org)
+    return org
 
-
-@app.get("/organizations", tags=["Organizations"])
+@app.get("/organizations")
 def list_organizations(db: Session = Depends(get_db)):
-    """
-    List all organizations.
-    """
-    return db.query(Organization).all()
+    return db.query(models.Organization).all()
+
+
+
+
