@@ -68,7 +68,7 @@ For new data structures that need validation (e.g., for API request bodies), cre
 *   Ensure any new database models are defined in `backend/models.py` with appropriate columns and relationships.
 *   Verify that new API request/response structures have corresponding Pydantic schemas defined in `backend/schemas.py`.
 *   Confirm that all new API endpoints in `backend/main.py` requiring authentication correctly utilize the `security.py::verify_jwt` dependency.
-*   > ⚠️ Not confirmed — verify before running. (No evidence for linting, testing, or specific CI steps.)
+*   > ⚠️ Not confirmed — check for linting, testing, or specific CI steps.
 
 ## Project Overview
 
@@ -117,14 +117,14 @@ To get the `testing` backend running locally, follow these steps:
     ```bash
     python -m venv venv
     source venv/bin/activate   # On Windows: venv\Scripts\activate
+    > ⚠️ Not confirmed — verify before running. (A `requirements.txt` file is inferred but not provided in evidence. Check for its existence and content.)
     pip install -r requirements.txt
-    > ⚠️ Not confirmed — verify before running. (requirements.txt is inferred, not provided)
     ```
 
 3.  **Environment Variables**
     The application relies on the following environment variables:
-    *   `JWT_SECRET`: Used by `security.py::verify_jwt` for decoding JWTs.
-    *   `JWT_ALGORITHM`: Used by `security.py::verify_jwt` to specify the algorithm for JWT decoding.
+    *   `JWT_SECRET`: Used by `security.py::verify_jwt` for decoding JWTs. If missing, JWT authentication will fail with `JWTError`.
+    *   `JWT_ALGORITHM`: Used by `security.py::verify_jwt` to specify the algorithm for JWT decoding. If missing, JWT authentication will fail with `JWTError`.
     > ⚠️ Not confirmed — verify before running. (Specific instructions for setting these or what breaks if missing are not in evidence.)
 
 4.  **Configuration Files**

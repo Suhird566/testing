@@ -98,6 +98,9 @@ class ReviewFinding(Base):
     issue_type = Column(String(50), nullable=False)
     severity = Column(String(20), nullable=False)
     description = Column(Text, nullable=True)
+    issue_type = Column(String(50), nullable=True)
+    severity = Column(String(20), nullable=True)
+    description = Column(Text, nullable=False)
     suggestion = Column(Text)
     created_at = Column(TIMESTAMP(timezone=False), server_default=func.now())
 
