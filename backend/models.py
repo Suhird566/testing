@@ -97,7 +97,7 @@ class ReviewFinding(Base):
     line_number = Column(Integer)
     issue_type = Column(String(50), nullable=True)
     severity = Column(String(20), nullable=True)
-    description = Column(Text, nullable=False)
+    description = Column(Text, nullable=True)
     suggestion = Column(Text)
-    created_at = Column(TIMESTAMP(timezone=True), server_default=func.now())
+    created_at = Column(TIMESTAMP(timezone=False), server_default=func.now())
 
