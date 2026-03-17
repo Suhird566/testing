@@ -20,7 +20,7 @@ def get_db():
 
 @app.get("/")
 def root():
-    return {"message": "Backend running successfully 🚀"}
+    return {"message": "Backend successfully running 🚀"}
 
 @app.post("/organizations")
 def create_organization(data: schemas.OrganizationCreate, db: Session = Depends(get_db)):
