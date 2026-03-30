@@ -46,7 +46,7 @@ The primary entry point for the `testing` application is:
 ## How to Extend / Modify Safely
 
 **Adding new endpoints**
-To add a new API endpoint, you would typically define a new function within `backend/main.py`. This function would likely accept parameters, use `Depends(get_db)` for database access, and interact with data models defined in `backend/models.py` or validate input using schemas from `backend/schemas.py`. For example, `create_organization` demonstrates this pattern.
+To add a new API endpoint, you would typically define a new function within `backend/main.py`. This function would likely accept parameters, use `db: Session = Depends(get_db)` for database access, and interact with data models defined in `backend/models.py` or validate input using schemas from `backend/schemas.py`. For example, `create_organization` demonstrates this pattern.
 
 **Adding new data models**
 To introduce a new database entity, create a new class in `backend/models.py`. This class should inherit from `Base` (as seen with `Organization`, `User`, etc.) and define its columns using SQLAlchemy's `Column` type, including primary keys, foreign keys, and data types (e.g., `UUID`, `String`, `Boolean`, `TIMESTAMP`).
